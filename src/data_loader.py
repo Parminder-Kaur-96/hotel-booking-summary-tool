@@ -8,7 +8,10 @@ def load_booking_data(file_path):
     if not file_path.exists():
         raise FileNotFoundError(f"Dataset not found at: {file_path}")
 
-    dataframe = pd.read_csv(file_path)
+    try:
+        dataframe = pd.read_csv(file_path)
+    except pd.errors.EmptyDataError:
+        raise ValueError("The hotel booking dataset is empty.")
 
     if dataframe.empty:
         raise ValueError("The hotel booking dataset is empty.")
