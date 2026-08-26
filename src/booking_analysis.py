@@ -30,7 +30,7 @@ def summarize_by_hotel(df: pd.DataFrame) -> pd.DataFrame:
 
     return summary
     
-    def summarize_by_market_segment(df: pd.DataFrame) -> pd.DataFrame:
+def summarize_by_market_segment(df: pd.DataFrame) -> pd.DataFrame:
     """
     Return the number of bookings grouped by market segment.
 
