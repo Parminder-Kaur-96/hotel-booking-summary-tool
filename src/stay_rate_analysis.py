@@ -35,3 +35,11 @@ def summarize_adr(df: pd.DataFrame) -> dict:
         "maximum_adr": adr.max(),
     }
 
+def summarize_stay_and_rate(df: pd.DataFrame) -> dict:
+    """ 
+    Generate a combined stay and rate summary.
+    """
+    return {
+        "stay_statistics": summarize_stay_statistics(df),
+        "adr_summary": summarize_adr(df),
+    }
