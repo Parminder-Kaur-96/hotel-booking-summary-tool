@@ -1,5 +1,23 @@
 """Reusable stay and rate analysis functions for the Hotel Booking Summary Tool."""
+
 import pandas as pd
+
+
+def validate_required_columns(
+    df: pd.DataFrame, required_columns: list[str]
+) -> None:
+    """
+    Validate that the required columns exist in the DataFrame.
+    """
+    missing_columns = [
+        column for column in required_columns if column not in df.columns
+    ]
+
+    if missing_columns:
+        raise ValueError(
+            f"Missing required columns: {', '.join(missing_columns)}"
+        )
+
 
 def calculate_total_stay_length(df: pd.DataFrame) -> pd.Series:
     """
@@ -8,7 +26,12 @@ def calculate_total_stay_length(df: pd.DataFrame) -> pd.Series:
     Total stay length is calculated as:
     weekend nights + week nights.
     """
+    validate_required_columns(
+        df,
+        ["Stays in Weekend Nights", "Stays in Week Nights"],
+    )
     return df["Stays in Weekend Nights"] + df["Stays in Week Nights"]
+
 
 def summarize_stay_statistics(df: pd.DataFrame) -> dict:
     """
@@ -23,10 +46,12 @@ def summarize_stay_statistics(df: pd.DataFrame) -> dict:
         "maximum_stay_nights": total_stay.max(),
     }   
 
+
 def summarize_adr(df: pd.DataFrame) -> dict:
     """
     Generate summary statistics for Average Daily Rate (ADR).
     """
+    validate_required_columns(df, ["Average Daily Rate"])
     adr = df["Average Daily Rate"]
 
     return {
@@ -34,6 +59,7 @@ def summarize_adr(df: pd.DataFrame) -> dict:
         "minimum_adr": adr.min(),
         "maximum_adr": adr.max(),
     }
+
 
 def summarize_stay_and_rate(df: pd.DataFrame) -> dict:
     """ 
