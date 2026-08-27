@@ -22,3 +22,16 @@ def summarize_stay_statistics(df: pd.DataFrame) -> dict:
         "minimum_stay_nights": total_stay.min(),
         "maximum_stay_nights": total_stay.max(),
     }   
+
+def summarize_adr(df: pd.DataFrame) -> dict:
+    """
+    Generate summary statistics for Average Daily Rate (ADR).
+    """
+    adr = df["Average Daily Rate"]
+
+    return {
+        "average_adr": adr.mean(),
+        "minimum_adr": adr.min(),
+        "maximum_adr": adr.max(),
+    }
+
